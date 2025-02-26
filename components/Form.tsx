@@ -26,6 +26,27 @@ interface WorkoutFormData {
   preferredWorkoutTime: string;
 }
 
+type Field =
+  | {
+      label: string;
+      key: keyof WorkoutFormData;
+      type: "input";
+      placeholder: string;
+      inputType?: string;
+    }
+  | {
+      label: string;
+      key: keyof WorkoutFormData;
+      type: "select";
+      options: { value: string; label: string }[];
+    };
+
+interface FormStep {
+  title: string;
+  description: string;
+  fields: Field[];
+}
+
 export default function WorkoutForm() {
   const [formData, setFormData] = useState<WorkoutFormData>({
     goal: "",
@@ -56,14 +77,14 @@ export default function WorkoutForm() {
     }, 1500);
   };
 
-  const formSteps = [
+  const formSteps: FormStep[] = [
     {
       title: "Your Goals",
       description: "Let's start with your fitness objectives",
       fields: [
         {
           label: "What is your primary fitness goal?",
-          key: "goal" as keyof WorkoutFormData,
+          key: "goal",
           type: "input",
           placeholder: "e.g., Lose weight, Build muscle, Run a marathon",
         },
@@ -75,7 +96,7 @@ export default function WorkoutForm() {
       fields: [
         {
           label: "Gender",
-          key: "gender" as keyof WorkoutFormData,
+          key: "gender",
           type: "select",
           options: [
             { value: "male", label: "Male" },
@@ -85,21 +106,21 @@ export default function WorkoutForm() {
         },
         {
           label: "Age",
-          key: "age" as keyof WorkoutFormData,
+          key: "age",
           type: "input",
           inputType: "number",
           placeholder: "e.g., 25",
         },
         {
           label: "Weight (kg)",
-          key: "weight" as keyof WorkoutFormData,
+          key: "weight",
           type: "input",
           inputType: "number",
           placeholder: "e.g., 70",
         },
         {
           label: "Height (cm)",
-          key: "height" as keyof WorkoutFormData,
+          key: "height",
           type: "input",
           inputType: "number",
           placeholder: "e.g., 175",
@@ -112,7 +133,7 @@ export default function WorkoutForm() {
       fields: [
         {
           label: "Experience Level",
-          key: "experienceLevel" as keyof WorkoutFormData,
+          key: "experienceLevel",
           type: "select",
           options: [
             { value: "beginner", label: "Beginner" },
@@ -122,7 +143,7 @@ export default function WorkoutForm() {
         },
         {
           label: "Preferred Training Method",
-          key: "trainingMethod" as keyof WorkoutFormData,
+          key: "trainingMethod",
           type: "select",
           options: [
             { value: "bodyweight", label: "Bodyweight Exercises" },
@@ -132,7 +153,7 @@ export default function WorkoutForm() {
         },
         {
           label: "Workout Type",
-          key: "workoutType" as keyof WorkoutFormData,
+          key: "workoutType",
           type: "select",
           options: [
             { value: "strength", label: "Strength Training" },
@@ -144,7 +165,7 @@ export default function WorkoutForm() {
         },
         {
           label: "Preferred Workout Time",
-          key: "preferredWorkoutTime" as keyof WorkoutFormData,
+          key: "preferredWorkoutTime",
           type: "select",
           options: [
             { value: "morning", label: "Morning" },
@@ -278,15 +299,20 @@ export default function WorkoutForm() {
                                 />
                               </SelectTrigger>
                               <SelectContent className="bg-gray-700 border-gray-600">
-                                {field.options?.map((option) => (
-                                  <SelectItem
-                                    key={option.value}
-                                    value={option.value}
-                                    className="text-white focus:bg-pink-500"
-                                  >
-                                    {option.label}
-                                  </SelectItem>
-                                ))}
+                                {field.options?.map(
+                                  (option: {
+                                    value: string;
+                                    label: string;
+                                  }) => (
+                                    <SelectItem
+                                      key={option.value}
+                                      value={option.value}
+                                      className="text-white focus:bg-pink-500"
+                                    >
+                                      {option.label}
+                                    </SelectItem>
+                                  )
+                                )}
                               </SelectContent>
                             </Select>
                           )}
