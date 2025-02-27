@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// NEW imports
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+
 interface WorkoutFormData {
   goal: string;
   gender: string;
@@ -24,6 +28,28 @@ interface WorkoutFormData {
   workoutType: string;
   strengthLevel: string;
   preferredWorkoutTime: string;
+}
+
+interface Exercise {
+  name: string;
+  sets: number;
+  reps: string;
+  rest: string;
+  modification?: string;
+}
+
+interface DailyWorkout {
+  warmUp: string;
+  exercises: Exercise[];
+  coolDown: string;
+}
+
+interface WorkoutPlan {
+  weeklySchedule: Record<string, string>;
+  dailyWorkouts: Record<string, DailyWorkout>;
+  progressionPlan: Record<string, string>;
+  additionalTips: Record<string, string>;
+  nutritionalAdvice?: Record<string, string>;
 }
 
 type Field =
@@ -48,6 +74,8 @@ interface FormStep {
 }
 
 export default function WorkoutForm() {
+  const [error, setError] = useState("");
+  const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan | null>(null);
   const [formData, setFormData] = useState<WorkoutFormData>({
     goal: "",
     gender: "",
@@ -64,18 +92,40 @@ export default function WorkoutForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // NEW: reference to the output container for PDF capture
+  const pdfRef = useRef<HTMLDivElement>(null);
+
+  // ------------------ HANDLERS ------------------
+
   const handleChange = (key: keyof WorkoutFormData, value: string) => {
     setFormData({ ...formData, [key]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/generate-workout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setWorkoutPlan(data.workoutPlan);
+        setError("");
+      } else {
+        setError(data.error || "Something went wrong.");
+      }
+    } catch (err) {
+      setError("Failed to fetch the workout plan.");
+    } finally {
       setIsSubmitting(false);
-      // Handle success
-    }, 1500);
+    }
   };
+
+  // ------------------ FORM STEPS ------------------
 
   const formSteps: FormStep[] = [
     {
@@ -142,6 +192,16 @@ export default function WorkoutForm() {
           ],
         },
         {
+          label: "Current Strength Level",
+          key: "strengthLevel",
+          type: "select",
+          options: [
+            { value: "beginner", label: "Beginner" },
+            { value: "intermediate", label: "Intermediate" },
+            { value: "advanced", label: "Advanced" },
+          ],
+        },
+        {
           label: "Preferred Training Method",
           key: "trainingMethod",
           type: "select",
@@ -177,6 +237,8 @@ export default function WorkoutForm() {
     },
   ];
 
+  // ------------------ PROGRESS CALCULATION ------------------
+
   const calculateProgress = () => {
     const filledFields = Object.values(formData).filter(
       (value) => value !== ""
@@ -185,6 +247,286 @@ export default function WorkoutForm() {
     return (filledFields / totalFields) * 100;
   };
 
+  // ------------------ COPY & PDF GENERATION ------------------
+
+  // We still keep a text version for the "Copy" button:
+  const generatePlanDocumentText = () => {
+    if (!workoutPlan) return "";
+    let text = "Workout Plan Templates & Examples\n\n";
+
+    text += "INPUT:\n";
+    text += `• Goal: ${formData.goal || "N/A"}\n\n`;
+
+    text += "OUTPUT:\n";
+    // Weekly schedule
+    text += "Weekly Schedule:\n";
+    for (const [day, focus] of Object.entries(workoutPlan.weeklySchedule)) {
+      text += `- ${day}: ${focus}\n`;
+    }
+    text += "\nDaily Workouts:\n";
+    for (const [day, workout] of Object.entries(workoutPlan.dailyWorkouts)) {
+      text += `\n${day}:\n`;
+      text += `  Warm-up: ${workout.warmUp}\n`;
+      text += "  Exercises:\n";
+      workout.exercises.forEach((exercise, index) => {
+        text += `    ${index + 1}. ${exercise.name} - ${exercise.sets} sets x ${
+          exercise.reps
+        } reps (Rest: ${exercise.rest})\n`;
+        if (exercise.modification) {
+          text += `       Modification: ${exercise.modification}\n`;
+        }
+      });
+      text += `  Cool Down: ${workout.coolDown}\n`;
+    }
+    text += "\nProgression Plan:\n";
+    for (const [key, value] of Object.entries(workoutPlan.progressionPlan)) {
+      text += `- ${key.replace(/([A-Z])/g, " $1").trim()}: ${value}\n`;
+    }
+    text += "\nAdditional Tips:\n";
+    for (const [key, value] of Object.entries(workoutPlan.additionalTips)) {
+      text += `- ${key.replace(/([A-Z])/g, " $1").trim()}: ${value}\n`;
+    }
+    if (workoutPlan.nutritionalAdvice) {
+      text += "\nNutritional Advice:\n";
+      for (const [key, value] of Object.entries(
+        workoutPlan.nutritionalAdvice
+      )) {
+        text += `- ${key.replace(/([A-Z])/g, " $1").trim()}: ${value}\n`;
+      }
+    }
+
+    return text;
+  };
+
+  // Copy button (just copies text version)
+  const handleCopy = async () => {
+    const text = generatePlanDocumentText();
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("Workout plan copied to clipboard!");
+    } catch (err) {
+      alert("Failed to copy workout plan.");
+    }
+  };
+
+  // NEW: Download PDF that looks like the on-screen styling
+  const handleDownloadPdf = async () => {
+    if (!pdfRef.current) return;
+
+    try {
+      // 1) Capture the PDF container as a canvas
+      const canvas = await html2canvas(pdfRef.current, {
+        scale: 2, // Higher scale = sharper text but larger file
+      });
+
+      // 2) Initialize jsPDF
+      const pdf = new jsPDF("p", "pt", "a4");
+
+      // 3) Convert the canvas to an image
+      const imgData = canvas.toDataURL("image/png");
+
+      // 4) Calculate dimensions to fit A4 page
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+
+      // We'll scale it down to fit, preserving aspect ratio
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const newWidth = imgWidth * ratio;
+      const newHeight = imgHeight * ratio;
+
+      // 5) Add image to PDF
+      pdf.addImage(imgData, "PNG", 0, 0, newWidth, newHeight);
+
+      // 6) Save the PDF
+      pdf.save("workout-plan.pdf");
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      alert("Failed to generate PDF. See console for details.");
+    }
+  };
+
+  // ------------------ RENDER: RESULT OR FORM ------------------
+
+  if (workoutPlan) {
+    return (
+      <div className="flex flex-col items-center text-center bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl w-full max-w-5xl mx-auto my-10 p-6 shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full text-gray-100"
+        >
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h2 className="text-3xl font-bold mb-4 md:mb-0">
+              Workout Plan Templates & Examples
+            </h2>
+            <div className="flex space-x-2">
+              <Button
+                onClick={handleCopy}
+                className="bg-gray-700 hover:bg-gray-600 text-white"
+              >
+                Copy
+              </Button>
+              <Button
+                onClick={handleDownloadPdf}
+                className="bg-gray-700 hover:bg-gray-600 text-white"
+              >
+                Download as PDF
+              </Button>
+              <Button
+                onClick={() => setWorkoutPlan(null)}
+                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white"
+              >
+                Generate New Plan
+              </Button>
+            </div>
+          </div>
+
+          {/* This is the section we want to "print" to PDF */}
+          <div
+            ref={pdfRef} // reference for PDF capture
+            className="bg-gray-800/40 p-6 rounded-lg text-left"
+          >
+            {/* INPUT Section */}
+            <h3 className="text-lg font-bold uppercase text-gray-400 mb-2">
+              INPUT
+            </h3>
+            <p className="mb-6">
+              <span className="font-semibold">Goal:</span>{" "}
+              {formData.goal || "N/A"}
+            </p>
+
+            {/* OUTPUT Section */}
+            <h3 className="text-lg font-bold uppercase text-gray-400 mb-2">
+              OUTPUT
+            </h3>
+
+            {/* Weekly Schedule */}
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-pink-500 mb-2">
+                Weekly Schedule
+              </h4>
+              <ul className="list-disc ml-6 space-y-1">
+                {Object.entries(workoutPlan.weeklySchedule).map(
+                  ([day, focus]) => (
+                    <li key={day}>
+                      <span className="font-semibold">{day}:</span> {focus}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+
+            {/* Daily Workouts */}
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-purple-400 mb-2">
+                Daily Workouts
+              </h4>
+              {Object.entries(workoutPlan.dailyWorkouts).map(
+                ([day, workout]) => (
+                  <div key={day} className="mb-4">
+                    <h5 className="font-bold text-pink-500">{day}</h5>
+                    <ul className="list-disc ml-6 mt-2 space-y-1">
+                      <li>
+                        <span className="font-semibold">Warm-up:</span>{" "}
+                        {workout.warmUp}
+                      </li>
+                      <li>
+                        <span className="font-semibold">Exercises:</span>
+                        <ul className="list-disc ml-6 mt-1 space-y-1">
+                          {workout.exercises.map((exercise, index) => (
+                            <li key={index}>
+                              <span className="font-semibold">
+                                {exercise.name}
+                              </span>
+                              : {exercise.sets} sets × {exercise.reps} reps (
+                              Rest: {exercise.rest})
+                              {exercise.modification && (
+                                <div className="ml-4 text-sm text-pink-300">
+                                  Modification: {exercise.modification}
+                                </div>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                      <li>
+                        <span className="font-semibold">Cool Down:</span>{" "}
+                        {workout.coolDown}
+                      </li>
+                    </ul>
+                  </div>
+                )
+              )}
+            </div>
+
+            {/* Progression Plan */}
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-pink-500 mb-2">
+                Progression Plan
+              </h4>
+              <ul className="list-disc ml-6 space-y-1">
+                {Object.entries(workoutPlan.progressionPlan).map(
+                  ([key, value]) => (
+                    <li key={key}>
+                      <span className="font-semibold">
+                        {key.replace(/([A-Z])/g, " $1").trim()}:
+                      </span>{" "}
+                      {value}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+
+            {/* Additional Tips */}
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-purple-400 mb-2">
+                Additional Tips
+              </h4>
+              <ul className="list-disc ml-6 space-y-1">
+                {Object.entries(workoutPlan.additionalTips).map(
+                  ([key, value]) => (
+                    <li key={key}>
+                      <span className="font-semibold">
+                        {key.replace(/([A-Z])/g, " $1").trim()}:
+                      </span>{" "}
+                      {value}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+
+            {/* Nutritional Advice (if present) */}
+            {workoutPlan.nutritionalAdvice && (
+              <div>
+                <h4 className="text-xl font-semibold text-pink-500 mb-2">
+                  Nutritional Advice
+                </h4>
+                <ul className="list-disc ml-6 space-y-1">
+                  {Object.entries(workoutPlan.nutritionalAdvice).map(
+                    ([key, value]) => (
+                      <li key={key}>
+                        <span className="font-semibold">
+                          {key.replace(/([A-Z])/g, " $1").trim()}:
+                        </span>{" "}
+                        {value}
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // ------------------ FORM UI (NO WORKOUT PLAN YET) ------------------
   return (
     <div className="flex flex-col items-center text-center bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl w-full max-w-6xl mx-auto my-10 p-4 md:p-8 shadow-2xl">
       <motion.div

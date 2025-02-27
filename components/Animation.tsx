@@ -30,7 +30,7 @@ export default function WorkoutDemo() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-gray-900 rounded-2xl shadow-xl">
+    <div className="flex flex-col items-center text-center p-6 bg-gray-900  rounded-2xl shadow-xl shadow-pink-900">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

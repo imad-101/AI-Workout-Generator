@@ -53,7 +53,7 @@ export default function Testimonials() {
       ref={ref}
       className="relative bg-gray-900 overflow-hidden isolate"
       style={{
-        height: "calc(100vh + 200px)",
+        height: "calc(80vh + 200px)",
         minHeight: "600px",
       }}
     >
