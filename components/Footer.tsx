@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
             <span className="text-2xl font-bold">
-              Fit<span className="text-teal-400">AI</span>
+              Fit<span className="text-green-400">AI</span>
             </span>
           </div>
           <p className="text-gray-300 mb-6 max-w-sm">
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
             <li>
               <Link href="/assessment" className="flex items-center group">
                 Fitness Assessment
-                <span className="ml-2 bg-teal-500 text-black text-xs px-3 py-1 rounded-full font-medium group-hover:bg-teal-400 transition-colors duration-200">
+                <span className="ml-2 bg-green-500 text-black text-xs px-3 py-1 rounded-full font-medium group-hover:bg-green-400 transition-colors duration-200">
                   Start here
                 </span>
               </Link>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/workouts"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Workouts
               </Link>
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/nutrition"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Nutrition
               </Link>
@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/progress"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Progress Tracking
               </Link>
@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/help"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Help center
               </Link>
@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/feedback"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Feedback
               </Link>
@@ -122,7 +122,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/learn"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Learning Library
               </Link>
@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/community"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Community
               </Link>
@@ -138,7 +138,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/trainers"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Certified Trainers
               </Link>
@@ -153,7 +153,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/privacy"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Privacy
               </Link>
@@ -161,7 +161,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/terms"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Terms & Conditions
               </Link>
@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
             <li>
               <Link
                 href="/cookies"
-                className="hover:text-teal-400 transition-colors duration-200"
+                className="hover:text-green-400 transition-colors duration-200"
               >
                 Cookie Policy
               </Link>

@@ -64,10 +64,7 @@ export default function Testimonials() {
           <motion.div
             style={{ translateY }}
             className="absolute inset-0 opacity-20"
-          >
-            <div className="absolute top-10 left-20 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded-full blur-lg md:blur-3xl" />
-            <div className="absolute bottom-20 right-32 w-[250px] h-[250px] md:w-[300px] md:h-[300px] bg-gradient-to-b from-purple-400/20 to-pink-600/20 rounded-full blur-lg md:blur-3xl" />
-          </motion.div>
+          ></motion.div>
         </div>
 
         <div className="relative z-10 container px-4 mx-auto h-full">
@@ -99,14 +96,13 @@ export default function Testimonials() {
                   <Card className="bg-gray-800/90 backdrop-blur-md border border-gray-700">
                     <CardHeader className="flex flex-row items-start gap-3">
                       <div className="relative mt-1">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-purple-500" />
-                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-500/30 blur-sm" />
+                        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-green-400/30 to-green-500/30 blur-sm" />
                       </div>
                       <div>
                         <h3 className="text-[17px] font-semibold text-gray-100">
                           {testimonial.name}
                         </h3>
-                        <p className="text-sm text-pink-200/80">
+                        <p className="text-sm text-green-200/80">
                           {testimonial.role}
                         </p>
                       </div>
@@ -141,21 +137,19 @@ export default function Testimonials() {
                   top: testimonial.y,
                   rotate: testimonial.rotate + "deg",
                 }}
-                className="origin-center"
+                className="origin-center "
                 viewport={{ margin: "200px" }}
               >
-                <Card className="relative bg-gray-800/90 backdrop-blur-md border border-gray-700 hover:border-pink-300/30 transition-colors w-[280px] lg:w-[300px]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-purple-500/10 opacity-0 hover:opacity-100 transition-opacity rounded-lg" />
+                <Card className="relative bg-gray-800/90 hover:bg-green-900backdrop-blur-md border border-gray-700  transition-colors w-[280px] lg:w-[300px]">
                   <CardHeader className="flex flex-row items-start gap-3">
                     <div className="relative mt-1">
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-purple-500" />
-                      <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-500/30 blur-sm" />
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-green-400 to-green-500" />
                     </div>
                     <div>
                       <h3 className="text-[17px] font-semibold text-gray-100">
                         {testimonial.name}
                       </h3>
-                      <p className="text-sm text-pink-200/80">
+                      <p className="text-sm text-green-200/80">
                         {testimonial.role}
                       </p>
                     </div>
@@ -165,7 +159,7 @@ export default function Testimonials() {
                       "{testimonial.text}"
                     </p>
                     <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-7 h-7 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full" />
+                      <div className="w-7 h-7 bg-gradient-to-br from-green-400/20 to-green-500/20 rounded-full" />
                     </div>
                   </CardContent>
                 </Card>

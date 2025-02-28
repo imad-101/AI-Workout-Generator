@@ -5,14 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { motion } from "framer-motion";
 
 const FAQSection = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-8  text-white ">
       <div className="mb-10 text-center">
         <h2 className="text-3xl font-bold mb-2 text-white">
-          Frequently Asked <span className="text-pink-500">Questions</span>
+          Frequently Asked <span className="text-green-500">Questions</span>
         </h2>
         <p className="text-gray-400">
           Everything you need to know about our AI Workout Generator
@@ -24,11 +23,11 @@ const FAQSection = () => {
           <AccordionItem
             key={`faq-${index}`}
             value={`item-${index + 1}`}
-            className="border-0 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg shadow-pink-500/20"
+            className="border-0 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg shadow-green-500/20"
           >
             <AccordionTrigger className="px-6 py-4 bg-gray-800/50 backdrop-blur-sm rounded-xl text-left font-medium text-white group transition-all duration-300 hover:bg-gray-800 data-[state=open]:rounded-b-none hover:no-underline">
               <div className="flex items-center">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500/10 text-pink-500 mr-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500/10 text-green-500 mr-4">
                   <svg
                     className="w-4 h-4"
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +52,7 @@ const FAQSection = () => {
                 <div className="mt-3 pt-3 border-t border-gray-700/30">
                   <a
                     href={faq.cta.link}
-                    className="inline-flex items-center text-pink-400 hover:text-pink-300 transition-colors"
+                    className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors"
                   >
                     {faq.cta.text}
                     <svg
@@ -81,7 +80,7 @@ const FAQSection = () => {
 
       <div className="mt-12 text-center">
         <p className="text-gray-400 mb-5">Still have questions?</p>
-        <button className="px-8 py-3 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 text-white font-medium rounded-xl transition-all duration-300 inline-flex items-center shadow-lg shadow-pink-500/30 hover:shadow-pink-500/40 transform hover:-translate-y-1">
+        <button className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-medium rounded-xl transition-all duration-300 inline-flex items-center shadow-lg shadow-green-500/30 hover:shadow-green-500/40 transform hover:-translate-y-1">
           Contact Support
           <svg
             xmlns="http://www.w3.org/2000/svg"

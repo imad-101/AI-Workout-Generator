@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 const workouts = [
   {
@@ -30,24 +30,23 @@ export default function WorkoutDemo() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-gray-900  rounded-2xl shadow-xl shadow-pink-900">
+    <div className="flex flex-col  text-center p-6 bg-gray-800  rounded-xl ">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="mb-4 flex items-center gap-2"
       >
-        <Sparkles className="text-pink-500" />
         <h2 className="text-2xl font-bold text-white">AI-Generated Workout</h2>
       </motion.div>
-      <Card className="w-72 bg-gray-800 border border-gray-700">
-        <CardContent className="p-4">
+      <Card className="w-72 bg-gray-800 border-none">
+        <CardContent className="p-4 text-left">
           <motion.h3
             key={workouts[index].title}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xl font-semibold text-pink-400"
+            className="text-xl font-semibold text-green-400"
           >
             {workouts[index].title}
           </motion.h3>
@@ -66,9 +65,11 @@ export default function WorkoutDemo() {
           </ul>
         </CardContent>
       </Card>
-      <Button className="mt-4 bg-pink-600 hover:bg-pink-700 text-white">
-        Generate New Workout
-      </Button>
+      <Link href="#workout-form">
+        <Button className="mt-4 bg-green-600 hover:bg-green-700 text-white">
+          Generate Your Workout
+        </Button>
+      </Link>
     </div>
   );
 }

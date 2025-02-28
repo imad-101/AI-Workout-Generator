@@ -27,40 +27,35 @@ export default function Header() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between md:px-20 h-16">
-          <Link href="/" className="text-2xl font-bold text-white">
-            WorkoutAI
+          <Link href="/" className="text-xl sm:text-2xl font-bold text-white">
+            Free <span className="text-green-500">AI Workout</span> Generator
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="#features"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Features
-            </Link>
             <Link
               href="#how-it-works"
               className="text-gray-300 hover:text-white transition-colors"
             >
               How It Works
             </Link>
+
             <Link
-              href="#use-cases"
+              href="#Example"
               className="text-gray-300 hover:text-white transition-colors"
             >
-              Use Cases
+              Example
             </Link>
             <Link
-              href="#templates"
+              href="#Example"
               className="text-gray-300 hover:text-white transition-colors"
             >
-              Templates
+              Blog
             </Link>
             <Link
-              href="#get-started"
-              className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors"
+              href="#workout-form"
+              className="bg-green-600 text-white px-4 py-2 rounded-sm hover:bg-green-700 transition-colors"
             >
-              Get Started
+              Generate Free
             </Link>
           </nav>
 
@@ -83,34 +78,23 @@ export default function Header() {
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
               <Link
-                href="#features"
-                className="block text-gray-300 hover:text-white transition-colors"
-              >
-                Features
-              </Link>
-              <Link
                 href="#how-it-works"
                 className="block text-gray-300 hover:text-white transition-colors"
               >
                 How It Works
               </Link>
+
               <Link
-                href="#use-cases"
+                href="#Example"
                 className="block text-gray-300 hover:text-white transition-colors"
               >
-                Use Cases
+                Example
               </Link>
               <Link
-                href="#templates"
-                className="block text-gray-300 hover:text-white transition-colors"
-              >
-                Templates
-              </Link>
-              <Link
-                href="#get-started"
+                href="#Form"
                 className="block bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors text-center"
               >
-                Get Started
+                Generate Free
               </Link>
             </div>
           </motion.div>
