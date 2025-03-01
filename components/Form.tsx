@@ -106,11 +106,12 @@ export default function WorkoutForm() {
         setWorkoutPlan(data.workoutPlan);
         setError("");
       } else {
+        console.error("Server error:", data);
         setError(data.error || "Something went wrong.");
       }
-    } catch {
+    } catch (err) {
+      console.error("Fetch error:", err);
       setError("Failed to fetch the workout plan.");
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
