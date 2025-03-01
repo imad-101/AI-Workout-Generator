@@ -134,12 +134,12 @@ export default function StaticWorkoutExample() {
                           </p>
                         </div>
                       </div>
-                      {exercise.modification && (
+                      {/* {exercise.modification && (
                         <div className="mt-2 text-sm bg-green-900/30 p-2 rounded">
                           <span className="text-green-400">Modification:</span>{" "}
                           {exercise.modification}
                         </div>
-                      )}
+                      )} */}
                     </div>
                   ))}
 
