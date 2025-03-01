@@ -105,13 +105,8 @@ export default function WorkoutForm() {
       } else {
         setError(data.error || "Something went wrong.");
       }
-    } catch (error: unknown) {
+    } catch (err) {
       setError("Failed to fetch the workout plan.");
-      if (error instanceof Error) {
-        console.log(error, error.message);
-      } else {
-        console.log(error);
-      }
     } finally {
       setIsSubmitting(false);
     }
@@ -405,7 +400,7 @@ export default function WorkoutForm() {
 
   return (
     <div
-      className="flex flex-col items-center  bg-gray-800 rounded-lg py-12 px-4"
+      className="flex flex-col items-center  bg-gray-800 sm:rounded-lg py-12 px-4"
       id="workout-form"
     >
       <motion.div
@@ -425,7 +420,7 @@ export default function WorkoutForm() {
         <Card className="border-0 shadow-xl rounded-2xl overflow-hidden  ">
           <div className="bg-green-600 h-2 w-full">
             <div
-              className="h-full bg-yellow-500 transition-all duration-500"
+              className="h-full bg-emerald-300 transition-all duration-500"
               style={{ width: `${calculateProgress()}%` }}
             ></div>
           </div>

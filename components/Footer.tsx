@@ -5,12 +5,12 @@ import Link from "next/link";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white py-12 px-4 md:px-10 border-t border-gray-700">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-24">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 sm:gap-24">
         {/* Branding Column */}
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
-            <span className="text-2xl font-bold">
-              Fit<span className="text-green-400">AI</span>
+            <span className="text-xl font-bold">
+              AI <span className="text-green-400">Workout</span> Generator
             </span>
           </div>
           <p className="text-gray-300 mb-6 max-w-sm">
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
 
         {/* Start Your Journey Column */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Start Your Journey</h3>
+          <h3 className="text-lg font-bold mb-4">Start Your Journey</h3>
           <ul className="space-y-3">
             <li>
               <Link href="/assessment" className="flex items-center group">
@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
 
         {/* Resources Column */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Resources</h3>
+          <h3 className="text-lg font-bold mb-4">Resources</h3>
           <ul className="space-y-3">
             <li>
               <Link
@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
 
         {/* Legal Column */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Legal</h3>
+          <h3 className="text-lg font-bold mb-4">Legal</h3>
           <ul className="space-y-3">
             <li>
               <Link
@@ -180,7 +180,10 @@ const Footer: React.FC = () => {
 
       <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-800 text-sm text-gray-400">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p>© {new Date().getFullYear()} FitAI. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} AI Workout Generator. All rights
+            reserved.
+          </p>
           <p className="mt-2 md:mt-0">
             Made with passion for fitness enthusiasts
           </p>

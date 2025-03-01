@@ -37,10 +37,9 @@ export default function Hero() {
               className="text-5xl md:text-7x  font-bold mb-6 bg-clip-text text-center sm:text-left text-transparent bg-gradient-to-r from-green-400 to-green-600"
             >
               Free AI Workout Plan Generator{" "}
-              <span className="hidden md:block">
-                | Generate Highly Personalized
+              <span className="hidden md:block text-white">
+                Generate Highly Personalized Workouts
               </span>
-              Workouts
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: -20 }}
@@ -60,14 +59,14 @@ export default function Hero() {
             >
               <a
                 href="#workout-form"
-                className="inline-flex items-center  bg-gradient-to-r from-green-500 to-green-500 text-white font-bold py-3 px-8 rounded-full hover:from-green-600 hover:to-green-600 transition duration-300 transform hover:scale-105"
+                className="inline-flex items-center  bg-gradient-to-r from-green-500 to-green-500 text-white font-bold py-3 px-4 sm:px-8 rounded-full hover:from-green-600 hover:to-green-600 transition duration-300 transform hover:scale-105"
               >
                 Get Started
                 <ArrowRight className="ml-2" />
               </a>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center bg-gray-700 text-white font-bold py-3 px-8 rounded-full hover:bg-gray-600 transition duration-300 transform hover:scale-105"
+                className="inline-flex items-center bg-gray-700 text-white font-bold py-3 px-4 sm:px-8 rounded-full hover:bg-gray-600 transition duration-300 transform hover:scale-105"
               >
                 Learn More
               </a>
@@ -83,7 +82,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap gap-4 mb-1 sm:mb-8 mx-auto justify-center flex-col sm:flex-row"
+          className="flex flex-wrap gap-4 mb- sm:mb-8 mx-auto justify-center flex-col sm:flex-row"
         >
           {features.map((feature, index) => (
             <div

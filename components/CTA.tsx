@@ -9,99 +9,59 @@ export default function CTA() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { left, top } = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - left);
-    mouseY.set(e.clientY - top);
-  };
-
-  const background = useMotionTemplate`radial-gradient(600px at ${mouseX}px ${mouseY}px, rgba(236, 72, 153, 0.1) 0%, rgba(124, 58, 237, 0.05) 30%, transparent 80%)`;
+  // Enhanced green gradient with a luxurious touch
+  const background = useMotionTemplate`radial-gradient(600px at ${mouseX}px ${mouseY}px, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.08) 40%, transparent 80%)`;
 
   return (
     <section
-      className="relative py-16 md:py-20 bg-gray-950 border-t border-gray-800 mb-16 md:mb-24 rounded-xl md:rounded-2xl"
-      onMouseMove={handleMouseMove}
+      className="relative py-10 md:py-24 mt-11 border-gray-800 mb-16 md:mb-24 rounded-2xl md:rounded-3xl overflow-hidden"
       ref={sectionRef}
     >
-      {/* Main animated gradient background */}
-      <motion.div
-        className="absolute inset-0 opacity-10 md:opacity-15 pointer-events-none"
-        style={{ background }}
-      />
-
-      {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Responsive rotating circles */}
-        {[1, 2, 3].map((i) => (
-          <motion.div
-            key={`circle-${i}`}
-            className="absolute rounded-full blur-lg md:blur-xl"
-            animate={{
-              rotate: 360,
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 10 + i * 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              background: `radial-gradient(circle at center, 
-                rgba(236, 72, 153, 0.${i}) 0%, 
-                rgba(124, 58, 237, 0.0${i}) 50%, 
-                transparent 100%)`,
-              left: `${i * 10}%`,
-              top: `${i * 5}%`,
-              width: `${i * 50}px`,
-              height: `${i * 50}px`,
-            }}
-            initial={false}
-          />
-        ))}
-      </div>
-
       <div className="container px-4 mx-auto relative z-10">
         <motion.div
-          className="max-w-2xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="max-w-3xl mx-auto text-center"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-gray-100 px-4">
-            Start Your AI Fitness Journey
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-5 md:mb-7 text-gray-50 px-4 leading-tight">
+            Start Your Fitness Journey
             <motion.span
-              className="block mt-2 md:mt-3 bg-gradient-to-r from-pink-300 to-purple-400 bg-clip-text text-transparent"
-              animate={{ opacity: [0.9, 1, 0.9] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="block mt-3 text-3xl md:mt-4 bg-gradient-to-r from-teal-300 via-green-300 to-emerald-400 bg-clip-text text-transparent"
+              animate={{ opacity: [0.85, 1, 0.85] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
             >
-              Free Forever
+              Generate Your Personalized Plan
             </motion.span>
           </h2>
 
-          <p className="text-base md:text-lg text-gray-400 mb-6 md:mb-8 max-w-md mx-auto px-2">
-            Experience personalized workout plans powered by AI. No credit card
-            required.
-          </p>
-
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.06, rotate: 1 }}
+            whileTap={{ scale: 0.94 }}
             className="flex justify-center"
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 text-base md:text-lg px-6 py-4 md:px-8 md:py-6 rounded-lg md:rounded-xl relative overflow-hidden group w-full sm:w-auto"
+              className="bg-gradient-to-r from-teal-500 via-green-500 to-emerald-600 text-white hover:from-teal-600 hover:via-green-600 hover:to-emerald-700 text-lg md:text-xl px-8 py-5 md:px-10 md:py-6 rounded-xl md:rounded-2xl relative overflow-hidden group w-full sm:w-auto shadow-xl transition-all duration-300"
             >
-              <span className="relative z-10">Create Free Account</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10 font-semibold tracking-wide">
+                Ignite Your Transformation
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-white/25 to-transparent opacity-0 group-hover:opacity-100"
+                transition={{ duration: 0.4 }}
+              />
+              <motion.div
+                className="absolute inset-0"
+                animate={{
+                  background: `radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%)`,
+                  opacity: [0, 0.2, 0],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
             </Button>
           </motion.div>
-
-          <motion.div
-            className="absolute -bottom-6 md:-bottom-8 left-1/2 -translate-x-1/2 w-24 md:w-32 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent"
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 1, repeat: Infinity }}
-          />
         </motion.div>
       </div>
     </section>

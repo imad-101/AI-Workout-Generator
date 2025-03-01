@@ -40,13 +40,13 @@ export default function WorkoutDemo() {
         <h2 className="text-2xl font-bold text-white">AI-Generated Workout</h2>
       </motion.div>
       <Card className="w-72 bg-gray-800 border-none">
-        <CardContent className="p-4 text-left">
+        <CardContent className="p-4 text-left ">
           <motion.h3
             key={workouts[index].title}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xl font-semibold text-green-400"
+            className="text-xl font-semibold text-green-400 "
           >
             {workouts[index].title}
           </motion.h3>

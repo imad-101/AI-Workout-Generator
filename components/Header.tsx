@@ -28,7 +28,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between md:px-20 h-16">
           <Link href="/" className="text-xl sm:text-2xl font-bold text-white">
-            Free <span className="text-green-500">AI Workout</span> Generator
+            AI <span className="text-green-500">Workout</span> Generator
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
@@ -90,9 +90,16 @@ export default function Header() {
               >
                 Example
               </Link>
+
+              <Link
+                href="#Blog"
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Blog
+              </Link>
               <Link
                 href="#Form"
-                className="block bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition-colors text-center"
+                className="block bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition-colors text-center"
               >
                 Generate Free
               </Link>

@@ -68,7 +68,7 @@ export default function StaticWorkoutExample() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
+    <div className="min-h-screen mt-10 bg-gray-900 text-gray-100 p-6">
       <div className="max-w-5xl mx-auto">
         <div className="mb-8 border-b border-gray-700 pb-4">
           <div className="flex items-center justify-between">
