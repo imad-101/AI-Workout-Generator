@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -105,8 +105,9 @@ export default function WorkoutForm() {
       } else {
         setError(data.error || "Something went wrong.");
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch the workout plan.");
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
