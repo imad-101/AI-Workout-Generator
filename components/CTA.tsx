@@ -6,11 +6,8 @@ import { useRef } from "react";
 
 export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
 
   // Enhanced green gradient with a luxurious touch
-  const background = useMotionTemplate`radial-gradient(600px at ${mouseX}px ${mouseY}px, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.08) 40%, transparent 80%)`;
 
   return (
     <section
@@ -51,14 +48,6 @@ export default function CTA() {
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-white/25 to-transparent opacity-0 group-hover:opacity-100"
                 transition={{ duration: 0.4 }}
-              />
-              <motion.div
-                className="absolute inset-0"
-                animate={{
-                  background: `radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%)`,
-                  opacity: [0, 0.2, 0],
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
               />
             </Button>
           </motion.div>
