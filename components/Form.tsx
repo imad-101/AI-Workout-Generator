@@ -112,6 +112,7 @@ export default function WorkoutForm() {
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Failed to fetch the workout plan.");
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
