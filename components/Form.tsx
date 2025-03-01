@@ -105,9 +105,13 @@ export default function WorkoutForm() {
       } else {
         setError(data.error || "Something went wrong.");
       }
-    } catch {
+    } catch (error: unknown) {
       setError("Failed to fetch the workout plan.");
-      console.log(error);
+      if (error instanceof Error) {
+        console.log(error, error.message);
+      } else {
+        console.log(error);
+      }
     } finally {
       setIsSubmitting(false);
     }
