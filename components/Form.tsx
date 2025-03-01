@@ -92,14 +92,11 @@ export default function WorkoutForm() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch(
-        "https://free-ai-workout-generator.vercel.app/api/generate-workout",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("/api/generate-workout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
       if (response.ok) {
