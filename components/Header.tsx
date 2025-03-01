@@ -53,7 +53,7 @@ export default function Header() {
             </Link>
             <Link
               href="#workout-form"
-              className="bg-green-600 text-white px-4 py-2 rounded-sm hover:bg-green-700 transition-colors"
+              className="bg-green-500 text-white px-4 py-2 rounded-sm hover:bg-green-600 transition-colors"
             >
               Generate Free
             </Link>
