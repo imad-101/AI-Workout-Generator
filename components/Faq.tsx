@@ -8,7 +8,7 @@ import {
 
 const FAQSection = () => {
   return (
-    <div className="w-full max-w-6xl mx-auto p-8  text-white ">
+    <div className="w-full max-w-6xl mx-auto p-8  text-white " id="faq">
       <div className="mb-10 text-center">
         <h2 className="text-3xl font-bold mb-2 text-white">
           Frequently Asked <span className="text-green-500">Questions</span>

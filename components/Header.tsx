@@ -26,7 +26,7 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between md:px-20 h-16">
+        <div className="flex items-center justify-between md:px-24 h-16">
           <Link href="/" className="text-xl sm:text-2xl font-bold text-white">
             AI <span className="text-green-500">Workout</span> Generator
           </Link>
@@ -46,7 +46,7 @@ export default function Header() {
               Example
             </Link>
             <Link
-              href="#Example"
+              href="/blog"
               className="text-gray-300 hover:text-white transition-colors"
             >
               Blog
@@ -92,7 +92,7 @@ export default function Header() {
               </Link>
 
               <Link
-                href="#Blog"
+                href="/blog"
                 className="block text-gray-300 hover:text-white transition-colors"
               >
                 Blog

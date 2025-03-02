@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
           <ul className="space-y-3">
             <li>
               <Link href="/assessment" className="flex items-center group">
-                Fitness Assessment
+                Generate Your Plan
                 <span className="ml-2 bg-green-500 text-black text-xs px-3 py-1 rounded-full font-medium group-hover:bg-green-400 transition-colors duration-200">
                   Start here
                 </span>
@@ -105,26 +105,26 @@ const Footer: React.FC = () => {
           <ul className="space-y-3">
             <li>
               <Link
-                href="/help"
+                href="/contact"
                 className="hover:text-green-400 transition-colors duration-200"
               >
-                Help center
+                Contact Us
               </Link>
             </li>
             <li>
               <Link
-                href="/feedback"
+                href="#faq"
                 className="hover:text-green-400 transition-colors duration-200"
               >
-                Feedback
+                FAQ's
               </Link>
             </li>
             <li>
               <Link
-                href="/learn"
+                href="/blog"
                 className="hover:text-green-400 transition-colors duration-200"
               >
-                Learning Library
+                Blogs
               </Link>
             </li>
             <li>
@@ -135,14 +135,7 @@ const Footer: React.FC = () => {
                 Community
               </Link>
             </li>
-            <li>
-              <Link
-                href="/trainers"
-                className="hover:text-green-400 transition-colors duration-200"
-              >
-                Certified Trainers
-              </Link>
-            </li>
+            <li></li>
           </ul>
         </div>
 
@@ -152,20 +145,21 @@ const Footer: React.FC = () => {
           <ul className="space-y-3">
             <li>
               <Link
-                href="/privacy"
-                className="hover:text-green-400 transition-colors duration-200"
-              >
-                Privacy
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/terms"
                 className="hover:text-green-400 transition-colors duration-200"
               >
                 Terms & Conditions
               </Link>
             </li>
+            <li>
+              <Link
+                href="/privacy"
+                className="hover:text-green-400 transition-colors duration-200"
+              >
+                Privacy
+              </Link>
+            </li>
+
             <li>
               <Link
                 href="/cookies"

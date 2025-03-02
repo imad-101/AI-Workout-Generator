@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import WorkoutDemo from "./Animation";
+
+import Image from "next/image";
 
 import { ArrowRight, Rocket, Globe, CreditCard, Star } from "lucide-react";
 
@@ -27,7 +28,7 @@ const features = [
 export default function Hero() {
   return (
     <section className="flex flex-col md:gap-36 gap-20 min-h-screen">
-      <section className="relative  flex items-center mt-24 md:mt-48 ">
+      <section className="relative  flex items-center mt-24 md:mt-36 ">
         <div className="container mx-auto px-4 z-10">
           <div className="max-w-4xl">
             <motion.h1
@@ -73,8 +74,15 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-        <div className="right hidden md:block">
-          <WorkoutDemo />
+        <div className="right hidden md:block ml-10">
+          <Image
+            loading="lazy"
+            src={"/Hero1.png"}
+            height={800}
+            width={600}
+            alt="Hero"
+            className=""
+          ></Image>
         </div>
       </section>
       <div className="mx-auto">
