@@ -88,14 +88,6 @@ const Footer: React.FC = () => {
                 Nutrition
               </Link>
             </li>
-            <li>
-              <Link
-                href="/progress"
-                className="hover:text-green-400 transition-colors duration-200"
-              >
-                Progress Tracking
-              </Link>
-            </li>
           </ul>
         </div>
 
