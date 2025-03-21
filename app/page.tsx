@@ -17,7 +17,7 @@ const Home = () => {
 
       <Testimonials />
       <FAQSection />
-      {/* <CTA /> */}
+      <CTA />
     </>
   );
 };
